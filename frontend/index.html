@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function() {
+        try {
+          var _currentFetch = (typeof window !== 'undefined' && typeof window.fetch === 'function')
+            ? window.fetch.bind(window)
+            : undefined;
+
+          var descriptor = {
+            get: function() {
+              return _currentFetch;
+            },
+            set: function(fn) {
+              _currentFetch = fn;
+            },
+            configurable: true,
+            enumerable: true
+          };
+
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            try {
+              Object.defineProperty(Window.prototype, 'fetch', descriptor);
+            } catch (_) {}
+          }
+
+          if (typeof window !== 'undefined') {
+            try {
+              Object.defineProperty(window, 'fetch', descriptor);
+            } catch (_) {}
+          }
+
+          if (typeof globalThis !== 'undefined' && globalThis !== window) {
+            try {
+              Object.defineProperty(globalThis, 'fetch', descriptor);
+            } catch (_) {}
+          }
+
+          var ignoreError = function(e) {
+            var msg = (e && (e.message || (e.error && e.error.message))) || '';
+            var file = (e && (e.filename || '')) || '';
+            if (
+              msg.indexOf('Cannot set property fetch') !== -1 ||
+              msg.indexOf('has only a getter') !== -1 ||
+              file.indexOf('chrome-extension://') !== -1
+            ) {
+              if (e.preventDefault) e.preventDefault();
+              if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+              return true;
+            }
+          };
+
+          window.addEventListener('error', ignoreError, true);
+          window.onerror = function(msg, url, lineNo, columnNo, error) {
+            var m = String(msg || (error && error.message) || '');
+            var u = String(url || '');
+            if (
+              m.indexOf('Cannot set property fetch') !== -1 ||
+              m.indexOf('has only a getter') !== -1 ||
+              u.indexOf('chrome-extension://') !== -1
+            ) {
+              return true;
+            }
+          };
+          window.addEventListener('unhandledrejection', function(e) {
+            var reason = e && e.reason;
+            var msg = (reason && (reason.message || String(reason))) || '';
+            var stack = (reason && reason.stack) || '';
+            if (
+              msg.indexOf('Cannot set property fetch') !== -1 ||
+              msg.indexOf('has only a getter') !== -1 ||
+              stack.indexOf('chrome-extension://') !== -1
+            ) {
+              if (e.preventDefault) e.preventDefault();
+              if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            }
+          }, true);
+        } catch (_) {}
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phorocket — Plataforma Musical Inteligente & Inmersiva</title>
+    <meta name="description" content="Plataforma musical inteligente, inmersiva y cyberpunk para administración de bibliotecas, reproducción y descubrimiento musical legal." />
+    <meta property="og:title" content="Phorocket — Plataforma Musical Inteligente & Inmersiva" />
+    <meta property="og:description" content="Plataforma musical inteligente, inmersiva y cyberpunk para administración de bibliotecas, reproducción y descubrimiento musical legal." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#08070d] text-slate-100 antialiased selection:bg-purple-600 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --accent-primary: #a855f7;
+    --accent-secondary: #c084fc;
+    --accent-glow: rgba(168, 85, 247, 0.4);
+    --accent-rgb: 168, 85, 247;
+    --selection-bg: rgba(168, 85, 247, 0.25);
+    --bg-main: #07060c;
+    --bg-surface: #0e0c18;
+    --bg-elevated: #161326;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(168, 85, 247, 0.3);
+  }
+
+  [data-theme="cyber-cyan"] {
+    --accent-primary: #00e5ff;
+    --accent-secondary: #38bdf8;
+    --accent-glow: rgba(0, 229, 255, 0.4);
+    --accent-rgb: 0, 229, 255;
+    --selection-bg: rgba(0, 229, 255, 0.2);
+    --bg-main: #05090f;
+    --bg-surface: #0a111c;
+    --bg-elevated: #101c2e;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(0, 229, 255, 0.3);
+  }
+
+  [data-theme="neon-matrix"] {
+    --accent-primary: #10b981;
+    --accent-secondary: #34d399;
+    --accent-glow: rgba(16, 185, 129, 0.4);
+    --accent-rgb: 16, 185, 129;
+    --selection-bg: rgba(16, 185, 129, 0.2);
+    --bg-main: #050c08;
+    --bg-surface: #091710;
+    --bg-elevated: #0f241a;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(16, 185, 129, 0.3);
+  }
+
+  [data-theme="crimson-drive"] {
+    --accent-primary: #f43f5e;
+    --accent-secondary: #fb7185;
+    --accent-glow: rgba(244, 63, 94, 0.4);
+    --accent-rgb: 244, 63, 94;
+    --selection-bg: rgba(244, 63, 94, 0.2);
+    --bg-main: #0d0608;
+    --bg-surface: #170b0f;
+    --bg-elevated: #241118;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(244, 63, 94, 0.3);
+  }
+
+  [data-theme="solar-gold"] {
+    --accent-primary: #f59e0b;
+    --accent-secondary: #fbbf24;
+    --accent-glow: rgba(245, 158, 11, 0.4);
+    --accent-rgb: 245, 158, 11;
+    --selection-bg: rgba(245, 158, 11, 0.2);
+    --bg-main: #0d0904;
+    --bg-surface: #171107;
+    --bg-elevated: #261c0d;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(245, 158, 11, 0.3);
+  }
+
+  [data-theme="magenta-flux"] {
+    --accent-primary: #ec4899;
+    --accent-secondary: #f472b6;
+    --accent-glow: rgba(236, 72, 153, 0.4);
+    --accent-rgb: 236, 72, 153;
+    --selection-bg: rgba(236, 72, 153, 0.2);
+    --bg-main: #0d050c;
+    --bg-surface: #180a17;
+    --bg-elevated: #261125;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(236, 72, 153, 0.3);
+    --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  body, input, button, select, textarea {
+    font-family: var(--font-body);
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: #f1f5f9;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Custom Cyberpunk Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(10, 8, 18, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Glass & Glow utilities */
+.neon-glow {
+  box-shadow: 0 0 24px -4px var(--accent-glow);
+}
+.neon-glow-sm {
+  box-shadow: 0 0 12px -2px var(--accent-glow);
+}
+.neon-border {
+  border-color: var(--border-accent);
+}
+.neon-text {
+  color: var(--accent-primary);
+  text-shadow: 0 0 14px var(--accent-glow);
+}
+
+/* Accessibility & Appearance scaling modifiers */
+.high-contrast-text {
+  --tw-text-opacity: 1 !important;
+  color: #ffffff !important;
+}
+.high-contrast-text .text-slate-400,
+.high-contrast-text .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+
+.reduce-motion * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* Music Artwork Beat Pulsing Animation */
+@keyframes musicPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px var(--art-glow, rgba(168, 85, 247, 0.4)));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 38px var(--art-glow, rgba(168, 85, 247, 0.75)));
+  }
+}
+
+.animate-music-pulse {
+  animation: musicPulse 2.2s ease-in-out infinite;
+}
+
+/* Rotating Squircle Background Animation */
+@keyframes spinSquircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinSquircleReverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-spin-squircle {
+  animation: spinSquircle 26s linear infinite;
+}
+
+.animate-spin-squircle-fast {
+  animation: spinSquircle 16s linear infinite;
+}
+
+.animate-spin-squircle-reverse {
+  animation: spinSquircleReverse 34s linear infinite;
+}
+
+

@@ -1,0 +1,6 @@
+{
+  "name": "Phorocket",
+  "description": "Plataforma musical inteligente, inmersiva y cyberpunk para administración de bibliotecas, reproducción y descubrimiento musical legal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
