@@ -1,0 +1,13 @@
+packages:
+  - frontend
+  - backend
+  - database
+
+allowBuilds:
+  '@prisma/engines': true
+  '@prisma/client': true
+  prisma: true
+  argon2: true
+  esbuild: true
+  '@google/genai': false
+  protobufjs: false

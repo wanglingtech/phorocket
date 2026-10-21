@@ -1,0 +1,23 @@
+meta {
+  name: AI Verify
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/ai/verify
+  body: json
+  {
+    model: "gemini-3.8-flash"
+  }
+  auth: none
+}
+
+assert {
+  res.status: either [200, 400]
+}
+
+docs {
+  Verifica una API Key de Gemini (del header x-api-key o del body).
+  Requiere GEMINI_API_KEY en el entorno del servidor o clave en el body para 200.
+}

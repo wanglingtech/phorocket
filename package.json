@@ -1,0 +1,24 @@
+{
+  "name": "phorocket",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Phorocket — Plataforma musical cyberpunk con DSP, visualizadores y Aura AI",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@12.14.0",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @phorocket/api --filter @phorocket/web dev",
+    "dev:api": "pnpm --filter @phorocket/api dev",
+    "dev:web": "pnpm --filter @phorocket/web dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "db:migrate": "pnpm --filter @phorocket/db migrate",
+    "db:deploy": "pnpm --filter @phorocket/db deploy",
+    "db:studio": "pnpm --filter @phorocket/db studio",
+    "db:seed": "pnpm --filter @phorocket/db seed",
+    "db:generate": "pnpm --filter @phorocket/db generate"
+  }
+}

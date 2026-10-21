@@ -1,0 +1,31 @@
+meta {
+  name: Refresh
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/auth/refresh
+  body: json
+  {
+    "refreshToken": "{{refreshToken}}"
+  }
+  auth: none
+}
+
+post-response {
+  const res = bruno.response;
+  if (res.getStatus() === 200) {
+    const body = res.getBody();
+    bru.setVar("accessToken", body.accessToken);
+    bru.setVar("refreshToken", body.refreshToken);
+  }
+}
+
+assert {
+  res.status: either [200, 401]
+}
+
+docs {
+  Rota el refresh token (el anterior queda revocado). Actualiza variables de tokens.
+}

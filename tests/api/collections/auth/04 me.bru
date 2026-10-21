@@ -1,0 +1,22 @@
+meta {
+  name: Me
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/auth/me
+  body: none
+  auth: bearer {
+    token: {{accessToken}}
+  }
+}
+
+assert {
+  res.status: either [200, 401]
+  res.body.user.id: isDefined
+}
+
+docs {
+  Devuelve el perfil del usuario autenticado. Requiere {{accessToken}}.
+}

@@ -98,44 +98,57 @@
 
 ## 🛠️ Stack Tecnológico
 
-* **Frontend:** [React 18](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/)
+* **Frontend:** [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS 4](https://tailwindcss.com/), Vite
+* **Backend:** Node.js 20+, Express 4 (arquitectura modular), Prisma + MySQL (nube) / SQLite (local)
 * **Audio & Visuales:** Web Audio API, HTML5 Canvas, D3.js, Lucide Icons
-* **Backend:** Node.js, Express
-* **Herramientas de Compilación:** Vite / Node Package Manager (`npm`)
+* **Monorepo:** pnpm workspaces (`frontend/`, `backend/`, `database/`, `tests/api/`)
+
+📖 Documentación completa en [`docs/`](docs/README.md) · 🗺️ Roadmap en [`docs/roadmap.md`](docs/roadmap.md)
 
 ---
 
-## 🚀 Instalación y Uso Local
+## 🚀 Instalación y Uso Local (desarrollo)
 
-### Requisitos Previos
-* **Node.js** (versión 18.0.0 o superior recomendada)
-* **npm** o **pnpm** / **yarn**
+### Requisitos
+* **Node.js** ≥ 20 (recomendado 24) y **pnpm** 12
+* **MySQL 8+** solo para el backend con BD (opcional para probar frontend/health/IA)
 
-### Pasos para Ejecutar
+### Pasos
 
-1. **Clonar el repositorio:**
+1. **Clonar e instalar:**
    ```bash
    git clone https://github.com/wanglingtech/phorocket.git
    cd phorocket
+   pnpm install
    ```
 
-2. **Instalar dependencias:**
+2. **Configurar entornos:**
    ```bash
-   npm install o pnpm install
+   cp backend/.env.example backend/.env      # JWT secrets + DATABASE_URL
+   cp database/.env.example database/.env    # credenciales MySQL
+   cp frontend/.env.example frontend/.env    # opcional en dev
    ```
+   Genera secretos JWT fuertes (64 hex) y crea la BD: `CREATE DATABASE phorocket CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
 
-3. **Configurar variables de entorno (Opcional):**
-   Crea un archivo `.env.local` en la raíz del proyecto para definir variables de entorno personalizadas si deseas conectar servicios propios:
-   ```env
-   PORT=3000
-   ```
-
-4. **Iniciar el servidor de desarrollo:**
+3. **Base de datos:**
    ```bash
-   npm run dev o pnpm dev
+   pnpm db:generate
+   pnpm db:migrate
    ```
 
-5. Abrir el navegador en `http://localhost:5173`o `http://127.0.0.1:3000/` (o el puerto indicado en tu terminal).
+4. **Arrancar (una terminal):**
+   ```bash
+   pnpm dev          # API (localhost:4000) + Web (localhost:5173)
+   # o por separado:
+   pnpm dev:api      # solo backend
+   pnpm dev:web      # solo frontend
+   ```
+
+5. Abrir **http://localhost:5173** (el frontend hace proxy de `/api` al backend).
+
+### Pruebas de API (Bruno)
+
+Importar `tests/api/` como colección en [Bruno](https://usebruno.com) y elegir el entorno `local`. Ver [`docs/testing.md`](docs/testing.md).
 
 ---
 

@@ -1,0 +1,20 @@
+meta {
+  name: AI Status
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/ai/status
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.defaultModel: eq "gemini-3.8-flash"
+}
+
+docs {
+  Estado de configuración de IA y modelos disponibles.
+}

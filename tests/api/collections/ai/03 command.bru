@@ -1,0 +1,27 @@
+meta {
+  name: AI Command
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/ai/command
+  body: json
+  {
+    "prompt": "reproduce algo de synthwave",
+    "catalog": [
+      { "id": "trk-1", "title": "Neon Orbit", "artist": "Aura Studio", "genre": "synthwave" }
+    ],
+    "playbackState": { "isPlaying": false, "volume": 0.8 }
+  }
+  auth: none
+}
+
+assert {
+  res.status: either [200, 401, 500]
+}
+
+docs {
+  Interpreta un comando en lenguaje natural y devuelve acción JSON.
+  401 si no hay API key configurada; 200 con { success, model, data }.
+}

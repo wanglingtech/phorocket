@@ -105,3 +105,20 @@ desktop.ini
 *.pid
 *.seed
 *.pid.lock
+# ==========================================
+# 9. PHOROCKET — ESPECÍFICO DEL PROYECTO
+# ==========================================
+# Cliente Prisma generado (regenerar con: pnpm db:generate)
+database/src/generated/
+
+# Bases de datos locales (modo local SQLite)
+*.db
+*.db-journal
+*.sqlite
+
+# Bruno: entornos con secretos locales
+tests/api/.env
+
+# Blobs de audio locales (modo local)
+storage/
+backups/
