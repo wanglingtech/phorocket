@@ -18,3 +18,7 @@ function shutdown(signal: string) {
 
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
+
+process.on('unhandledRejection', (reason) => {
+  logger.error(reason, 'unhandledRejection capturado (no se tumba el servidor)');
+});

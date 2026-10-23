@@ -1,12 +1,28 @@
+// ============================================================
+// Phorocket — Schema Prisma
+//
+// OBJETIVO DE PRODUCCIÓN: MySQL (ver bloque comentado abajo).
+// ACTIVO MIENTRAS TANTO: SQL Server (instancia local WANGLINGDB)
+//   → cambiar provider de vuelta a "mysql" + restaurar la
+//     DATABASE_URL de MySQL cuando esté instalado.
+// ============================================================
+
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/client"
 }
 
+// --- ACTIVO: SQL Server (desarrollo local) -------------------
 datasource db {
-  provider = "mysql"
+  provider = "sqlserver"
   url      = env("DATABASE_URL")
 }
+
+// --- OBJETIVO: MySQL (producción) -----------------------------
+// datasource db {
+//   provider = "mysql"
+//   url      = env("DATABASE_URL")
+// }
 
 model User {
   id           String   @id @default(cuid())
@@ -18,8 +34,8 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  refreshTokens     RefreshToken[]
-  legalAcceptances  UserLegalAcceptance[]
+  refreshTokens    RefreshToken[]
+  legalAcceptances UserLegalAcceptance[]
 
   @@map("users")
 }
@@ -41,12 +57,12 @@ model RefreshToken {
 }
 
 model UserLegalAcceptance {
-  id          String   @id @default(cuid())
-  userId      String
-  docType     String // terms | privacy | copyright | content
-  docVersion  String
-  acceptedAt  DateTime @default(now())
-  ip          String?
+  id         String   @id @default(cuid())
+  userId     String
+  docType    String // terms | privacy | copyright | content
+  docVersion String
+  acceptedAt DateTime @default(now())
+  ip         String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

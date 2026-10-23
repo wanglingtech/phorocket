@@ -2,10 +2,15 @@
 
 ## Proveedores
 
-| Modo | Proveedor | Origen del schema |
+| Modo | Proveedor | Estado |
 |---|---|---|
-| Web/nube | **MySQL 8** | `database/prisma/schema.prisma` (canónico) |
-| Local (Fase 3) | **SQLite** | Generado desde el canónico (`pnpm db:gen-sqlite`) |
+| Desarrollo actual | **SQL Server local** (instancia propia) | ✅ ACTIVO — schema con `provider = "sqlserver"` |
+| Web/nube (objetivo) | **MySQL 8** | 🎯 OBJETIVO — bloque `datasource` comentado en `schema.prisma` |
+| Local (Fase 3) | **SQLite** | Generado desde el canónico |
+
+> **Cambio de proveedor:** en `database/prisma/schema.prisma` está el `datasource` MySQL comentado debajo del activo. Para volver a MySQL: intercambiar los comentarios + `DATABASE_URL=mysql://...` + `pnpm db:generate && pnpm db:migrate`.
+>
+> **Estado local (SQL Server):** instancia `WANGLINGDB`, puerto TCP **1433** (fijado), auth mixta habilitada, login `phorocket_user` (db_owner en `phorocket`). Scripts de creación en `database/scripts/` (versión SQL Server y MySQL).
 
 Los blobs de audio **nunca** se guardan en la BD — van a R2 (nube) o filesystem (local). La BD guarda solo metadatos.
 

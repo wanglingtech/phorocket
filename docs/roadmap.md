@@ -2,13 +2,13 @@
 
 Plan por fases. Cada fase se implementa por bloques revisables. Los precios/infra se detallan en [budget.md](budget.md).
 
-## Fase 0 — Monorepo y base ✅ (en curso)
+## Fase 0 — Monorepo y base ✅
 - [x] Estructura pnpm workspaces: `frontend/`, `backend/`, `database/`, `tests/api/`
 - [x] Frontend limpio (solo SPA; proxy `/api` → `localhost:4000`)
 - [x] Colección Bruno (health, ai, auth)
 - [x] Docs base + borradores legales + budget
 - [x] `.agents/` + `AGENTS.md`
-- [ ] Eliminar `frontend/server.ts` (backend migrado y verificado)
+- [x] Eliminar `frontend/server.ts` (backend migrado y verificado)
 
 ## Fase 1 — Backend base y auth ✅
 - [x] Express modular (routes/controller/service/schema)
@@ -16,8 +16,9 @@ Plan por fases. Cada fase se implementa por bloques revisables. Los precios/infr
 - [x] Seguridad: helmet, CORS whitelist, rate-limit, validación, logs pino, errores centralizados
 - [x] Prisma: `User`, `RefreshToken`, `UserLegalAcceptance`
 - [x] Auth JWT: register (acepta términos legales versionados), login, refresh con rotación, me
-- [ ] Aplicar migración inicial en MySQL local (pendiente: MySQL activo + credenciales)
-- [ ] Verificar suite Bruno completa con BD
+- [x] BD aplicada (SQL Server local activo; MySQL = objetivo comentado en schema)
+- [x] Flujo auth verificado: register 201 → login 200 → me 200 → refresh rota → reuso 401
+- [x] Fix: `asyncHandler` (rechazos async no tumban el proceso) + guardia `unhandledRejection`
 
 **Criterio de aceptación:** `pnpm dev:api` arranca, `pnpm dev:web` sirve la SPA, suite Bruno de health/ai pasa sin BD y auth pasa con BD.
 

@@ -1,6 +1,10 @@
 # ==========================================
-# 1. DEPENDENCIAS (Gestores de paquetes)
+# Phorocket — .gitignore (raíz del monorepo)
 # ==========================================
+
+# ------------------------------------------
+# 1. DEPENDENCIAS
+# ------------------------------------------
 node_modules/
 jspm_packages/
 .pnpm-store/
@@ -9,9 +13,9 @@ jspm_packages/
 .yarn/build-state.yml
 .yarn/install-state.gz
 
-# ==========================================
-# 2. ARTEFACTOS DE COMPILACIÓN Y BUILDS
-# ==========================================
+# ------------------------------------------
+# 2. BUILD / COMPILACIÓN
+# ------------------------------------------
 build/
 dist/
 out/
@@ -24,29 +28,28 @@ out/
 .cache/
 *.tsbuildinfo
 
-# ==========================================
-# 3. SEGURIDAD Y VARIABLES DE ENTORNO (Crítico)
-# ==========================================
-# Ignorar todos los archivos de entorno
+# ------------------------------------------
+# 3. SEGURIDAD Y SECRETOS (CRÍTICO)
+# ------------------------------------------
+# Cualquier .env en cualquier carpeta (backend/, database/, frontend/, ...)
 .env
 .env.*
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+!.env.example
+!.env.*.example
+
+# Claves y certificados sueltos
 *.pem
 *.crt
 *.key
 *.p12
 *.pfx
+credentials.json
+service-account*.json
+secrets.json
 
-# Permitir explícitamente ejemplos o plantillas seguras
-!.env.example
-!.env.template
-
-# ==========================================
-# 4. REGISTROS Y LOGS
-# ==========================================
+# ------------------------------------------
+# 4. LOGS
+# ------------------------------------------
 logs/
 *.log
 npm-debug.log*
@@ -55,9 +58,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# ==========================================
-# 5. PRUEBAS, COBERTURA Y AUDITORÍA
-# ==========================================
+# ------------------------------------------
+# 5. PRUEBAS / COBERTURA
+# ------------------------------------------
 coverage/
 .nyc_output/
 .stryker-tmp/
@@ -67,9 +70,9 @@ test-results/
 cypress/videos/
 cypress/screenshots/
 
-# ==========================================
-# 6. ARCHIVOS DEL SISTEMA OPERATIVO
-# ==========================================
+# ------------------------------------------
+# 6. SISTEMA OPERATIVO
+# ------------------------------------------
 .DS_Store
 .DS_Store?
 ._*
@@ -79,46 +82,53 @@ ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# ==========================================
-# 7. IDEs Y EDITORES DE CÓDIGO
-# ==========================================
+# ------------------------------------------
+# 7. IDEs / EDITORES
+# ------------------------------------------
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .idea/
+.claude/
+.cursor/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-# ==========================================
-# 8. ARCHIVOS TEMPORALES Y SERVICIOS CLOUD
-# ==========================================
+# ------------------------------------------
+# 8. TEMPORALES / CLOUD
+# ------------------------------------------
 .serverless/
 .aws-sam/
 .terraform/
 *.tfstate*
-.dtrace/
 *.pid
-*.seed
 *.pid.lock
-# ==========================================
-# 9. PHOROCKET � ESPEC�FICO DEL PROYECTO
-# ==========================================
+*.dmp
+*.bak
+*.orig
+
+# ------------------------------------------
+# 9. PHOROCKET — ESPECÍFICO DEL PROYECTO
+# ------------------------------------------
 # Cliente Prisma generado (regenerar con: pnpm db:generate)
 database/src/generated/
 
-# Bases de datos locales (modo local SQLite)
+# Bases de datos locales (modo local SQLite + sidecars WAL/SHM)
 *.db
 *.db-journal
+*.db-wal
+*.db-shm
 *.sqlite
 
-# Bruno: entornos con secretos locales
+# Bruno: entornos locales con tokens (los .bru con solo baseUrl sí se suben)
 tests/api/.env
 
-# Blobs de audio locales (modo local)
+# Blobs de audio y contenido de usuarios (nunca en git ni en BD)
 storage/
+uploads/
 backups/
